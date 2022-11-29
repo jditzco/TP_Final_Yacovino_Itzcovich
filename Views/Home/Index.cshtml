@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+<body>
+    <div class="container">
+        <div class="mb-2 text-center">
+            <h1>CompuPro</h1>
+            <i>"Las mejores computadoras a un click"</i>
+        </div>
+        <div class="row">
+            <div class="dropdown text-center col-6">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Registrarse
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <form method="POST" action='@Url.Action("GuardarUsuario","Home")' style="margin-bottom:3%; margin-left:3%; margin-right:3%; margin-top:3%;">
+                            <label for="x" class="sr-only mb-1 fw-bold">Nombre:</label>
+                            <input type="text" class="form-control mb-3" name="nombre" placeholder="Nombre" maxlength="20">
+                            
+                            <label for="x" class="sr-only mb-1 fw-bold">Contraseña:</label>
+                            <input type="password" class="form-control mb-3" name="pass" placeholder="Contraseña" maxlength="20">
+
+                            <label for="x" class="sr-only mb-1 fw-bold">Fecha de Nacimiento:</label>
+                            <input type="date" class="form-control mb-3" name="fechaNacimiento" placeholder="Nombre" maxlength="20">
+                            
+                            <button type="submit" class="btn btn-success" placeholder="Nombre">Ingresar</button>
+                        </form>
+                </ul>
+            </div>
+            <div class="dropdown text-center col-6">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Iniciar Sesion
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <form method="POST" action='@Url.Action("BuscarUsuario","Home")' style="margin-bottom:3%; margin-left:3%; margin-right:3%; margin-top:3%;">
+                            <label for="x" class="sr-only mb-1 fw-bold">Nombre:</label>
+                            <input type="text" class="form-control mb-3" name="nombre" placeholder="Nombre" maxlength="20">
+                            
+                            <label for="x" class="sr-only mb-1 fw-bold">Contraseña:</label>
+                            <input type="password" class="form-control mb-3" name="pass" placeholder="Contraseña" maxlength="20">
+
+                            <button type="submit" class="btn btn-success" placeholder="Nombre">Ingresar</button>
+                        </form>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+

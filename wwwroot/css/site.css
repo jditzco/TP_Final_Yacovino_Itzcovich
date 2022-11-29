@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+  font-family:"Georgia";
+}
+
+body {
+  margin-bottom: 60px;
+  font-family:'Calibri'; /*'Calibri', 'Trebuchet MS', 'Geneva'*/
+}
+.Margen{
+  margin-left: 5%;
+}
+.Margen2{
+  margin-right: 1%;
+}
+.Margen3{
+  margin-right: 1%;
+  margin-left: 1%;
+}

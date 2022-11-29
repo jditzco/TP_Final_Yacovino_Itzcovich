@@ -1,0 +1,148 @@
+@{
+    ViewData["Title"] = "VerComputadoras";
+}
+<head>
+  <nav class="navbar navbar-light" style="background-color:#4671B5;">
+  <div class="container-fluid justify-content-around">
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("Ingreso","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Inicio</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("VerComputadoras","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Explorar</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("verPublicaciones","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Publicaciones</a>
+    <div class="btn navbar-brand dropdown">
+          <a class="fw-bold text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/img/Perfil.png" width=50%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fw-bold" href="#">@ViewBag.Perfil.Nombre</a></li>
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalUsuario" onclick="mostrarInfoUsuarioAjax(@ViewBag.Perfil.idUsuario)">Ver Perfil</button>
+            <li><a class="dropdown-item" href='@Url.Action("AgregarFondos","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Agregar fondos</a></li>
+            <li><a class="dropdown-item" href='@Url.Action("Index","Home")'>Cerrar Sesión</a></li>
+          </ul>
+        </div>
+  </div>
+  
+</nav>
+</head>
+<div class="">
+    <!--Cards-->
+    <!--onclick="mostrarInfoRAMAjax(i.IdSerie, 'i.Nombre')"-->
+    <nav class="navbar navbar-light mb-4" style="background-color:#658cc2cb;">
+      <div class="container-fluid justify-content-around">
+        <h2 class="mb-1 Margen text-center fw-bold text-light">Búsqueda de Computadoras</h2>
+      </div>
+    </nav>
+    <div class="row Margen2">
+        <div class="mb-2 col-3"> <!--align-self-center align-content-center / Poner en el medio-->
+            <h4 class="mb-4 Margen fw-bold">Filtros</h4> 
+            <a class="mb-2 text-light d-flex" href='@Url.Action("filtrarBusqueda","Home", new {idUsuario = ViewBag.Perfil.idUsuario, marca="Msi"})'><img src="data:image/png;base64,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" width=80%></a>
+            <a class="mb-2 text-light d-flex" href='@Url.Action("filtrarBusqueda","Home", new {idUsuario = ViewBag.Perfil.idUsuario, marca="Dell"})'><img src="https://ingrammicrocloud.com/sites/default/files/2021-12/Dell_Logo_0.png" width=80%></a>    
+            <a class="mb-2 text-light d-flex" href='@Url.Action("filtrarBusqueda","Home", new {idUsuario = ViewBag.Perfil.idUsuario, marca="HP"})'><img src="/img/LOGOHP.jpg" width=80%></a>    
+            <a class="mb-2 text-light d-flex" href='@Url.Action("filtrarBusqueda","Home", new {idUsuario = ViewBag.Perfil.idUsuario, marca="Lenovo"})'><img src="https://www.0800telefono.org/wp-content/uploads/2018/11/Branding_lenovo-logo_lenovologoposred_low_res.png" width=80%></a>    
+            <a class="mb-2 btn btn-secondary btn-lg text-center text-light fw-bold d-flex" href='@Url.Action("filtrarBusqueda","Home", new {idUsuario = ViewBag.Perfil.idUsuario})' style="width: 80%;">Filtrar Todos</a>
+        </div>
+        <div class="col-9 justify-content-center">
+            <h4 class="mb-4 Margen fw-bold text-center">Computadoras Encontradas</h4>
+            @if(ViewBag.Error!=null){
+              <div class="alert alert-warning" role="alert" style="max-width: 540px">
+                  <i>@ViewBag.Error</i>
+                </div>
+            }
+            <div class="row">
+            @{
+            
+            
+              foreach (Computadora i in ViewBag.Computadoras)
+              {  
+                  <div class="card mb-3 col-4" style="margin-right: 0px; background-color:#658cc270;">
+                      <div class="row g-0">
+                          <div class="col-md-4">
+                          <img src="@i.ImagenPortada" class="img-fluid rounded-start" alt="...">
+                          </div>
+                          <div class="col-md-8">
+                          <div class="card-body">
+                              <h5 class="card-title fw-bold">@i.nombre</h5>
+                              <p class="card-title">Precio: $@i.Precio</p>
+                              @if(!i.Disponible){
+                                  <i class="card-text mb-1"><small class="text-muted">No disponible</small></i><br>
+                                  <button type="button" class="btn text-light btn-primary" style="background-color:#4671B5;" disabled> 
+                                      Ver Detalles
+                                  </button>
+                                  <a type="button" href='@Url.Action("validarCompra","Home", new {idUsuario = ViewBag.Perfil.idUsuario, idPC = @i.idPC})' class="btn text-light disabled" style="background-color:#187a36;" aria-disabled="true">Comprar</a>
+                              }
+                              else{
+                                  <button type="button" class="btn text-light btn-primary" data-bs-toggle="modal" data-bs-target="#modalComputadora" style="background-color:#4671B5;" onclick="mostrarInfoComputadoraAjax(@i.idPC)"> @* onclick="mostrarInfoComputadoraAjax(i)" *@
+                                    Ver Detalles
+                                  </button>
+                                  <a type="button" href='@Url.Action("validarCompra","Home", new {idUsuario = ViewBag.Perfil.idUsuario, idPC = @i.idPC})' class="btn text-light" style="background-color:#187a36;">Comprar</a>                            
+                              }
+                              
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+            }
+            }
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalComputadora" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content" style="background-color:#ffffffe8;">
+      <div class="modal-header">
+        <h5 class="fw-bold text-center" id="Titulo">Nombre PC</h5>
+        <button type="button" class="close" data-dismiss="#modalComputadora" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="fw-bold">Marca </p>
+        <p class="" id="Marca">Marca</p>
+        <p class="fw-bold">Procesador</p> 
+        <p class="" id="Procesador">Procesador</p>
+        <p class="fw-bold">Mother</p> 
+        <p class="" id="Mother">Mother</p>
+        <p class="fw-bold">Placa de Video</p> 
+        <p class="" id="PlacaVideo">Placa de Video</p>
+        <p class="fw-bold">Fuente de Alimentación</p> 
+        <p class="" id="FuenteAlimentacion">Fuente de Alimentación</p>
+        <p class="fw-bold">Sistema Operativo</p> 
+        <p class="" id="SO">SO</p>
+        <p class="fw-bold">Envío a Domicilio</p> 
+        <p class="" id="EnvioADomicilio">.</p>
+        <p class="fw-bold">Nombre RAM</p> 
+        <p class="" id="RAM">Nombre RAM</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modalComputadora">Atras</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content" style="background-color:#ffffffe8;">
+      <div class="modal-header">
+        <h5 class="fw-bold text-center" id="Nombre">Nombre del Usuario</h5>
+        <button type="button" class="close" data-dismiss="#modalComputadora" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="" id="FechaNacimiento">Fecha de nacimiento:</p>
+        <p class="" id="FechaSignUp">Fecha de creación de la cuenta:</p>
+        <p class="" id="Plata">Fondos:</p>
+        <p class="" id="ComputadorasCompradas">Computadoras Compradas:</p>
+        <p class="" id="ComputadorasVendidas">Computadoras Vendidas:</p>
+        <p class="" id="Rango">Rango</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modalComputadora">Atras</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

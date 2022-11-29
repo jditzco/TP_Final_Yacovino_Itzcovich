@@ -1,0 +1,95 @@
+@{
+    ViewData["Title"] = "Home";
+}
+<head>
+  <nav class="navbar navbar-light" style="background-color:#4671B5;">
+  <div class="container-fluid justify-content-around">
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("Ingreso","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Inicio</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("VerComputadoras","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Explorar</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("verPublicaciones","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Publicaciones</a>
+    <div class="btn navbar-brand dropdown">
+          <a class="fw-bold text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/img/Perfil.png" width=50%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fw-bold" href="#">@ViewBag.Perfil.Nombre</a></li>
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalUsuario" onclick="mostrarInfoUsuarioAjax(@ViewBag.Perfil.idUsuario)">Ver Perfil</button>
+            <li><a class="dropdown-item" href='@Url.Action("AgregarFondos","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Agregar fondos</a></li>
+            <li><a class="dropdown-item" href='@Url.Action("Index","Home")'>Cerrar Sesión</a></li>
+          </ul>
+        </div>
+  </div>
+  
+</nav>
+</head>
+<body>
+
+    <!--Carrousel-->
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner mb-5">
+      <div class="carousel-item active">
+        <img src="https://storage-asset.msi.com/latam/picture/banner/banner_16558668331339e3e16ac9671e2b811e311b6e5f4c.jpeg" class="d-block w-100" style="width:1348px" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://storage-asset.msi.com/latam/picture/banner/banner_1666900156e74ec50034e816cf2a8d9cadc5c31b7b.jpeg" class="d-block w-100" style="width:1348px" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://storage-asset.msi.com/latam/picture/banner/banner_16652980723920a1168b2f1dc7921267e3b3cec7f1.jpeg" class="d-block w-100" style="width:1348px" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+    
+    <nav class="navbar navbar-light" style="background-color:#rgb;">
+  <div class="container-fluid align-content-start justify-content-around">
+    <div class="col-3 text-center">
+        <h4 class="fw-bold" style="color: #658BC2;">1. Computadoras a un click</h4>
+        <p>Podés buscar todas las computadoras que desee con tan sólo ingresar al buscador. También podés filtrar la búsqueda según las marcas para ver todas las computadoras de la misma.</p>
+      </div>
+      <div class="col-3 text-center">
+        <h4 class="fw-bold" style="color: #658BC2;">2. Compra y Venta</h4>
+        <p>En CompuPro tenés la oportunidad de poder tanto comprar como poner computadoras a la venta. Lo único que necesitas para comprar una PC es agregar fondos a tu cuenta en tu perfil, y para poner a la venta, sólamente basta con rellenar un formulario con los datos de tu computadora.</p>
+      </div>
+      <div class="col-3 text-center">
+        <h4 class="fw-bold" style="color: #658BC2;">3. Sube de Rango</h4>
+        <p>Además de comprar y vender computadoras, en CompuPro podés ir escalando rangos en función de las computadoras que compres y vendas. Todos los usuarios comienzan en el rango J, y terminan en el rango A.</p>
+      </div>
+    </div>
+  
+</nav>
+  <!-- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS -- CARDS !--> 
+  <div class="text-center">
+    <a class="btn btn-primary btn-lg fw-bold" href='@Url.Action("VerComputadoras","Home", new {idUsuario = ViewBag.Perfil.idUsuario})' style="background-color:#658BC2;"> Ver Computadoras </a> 
+  </div>
+</body>
+
+<!-- Modal -->
+<div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content" style="background-color:#ffffffe8;">
+      <div class="modal-header">
+        <h5 class="fw-bold text-center" id="Nombre">Nombre del Usuario</h5>
+        <button type="button" class="close" data-dismiss="#modalComputadora" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="" id="FechaNacimiento">Fecha de nacimiento:</p>
+        <p class="" id="FechaSignUp">Fecha de creación de la cuenta:</p>
+        <p class="" id="Plata">Fondos:</p>
+        <p class="" id="ComputadorasCompradas">Computadoras Compradas:</p>
+        <p class="" id="ComputadorasVendidas">Computadoras Vendidas:</p>
+        <p class="" id="Rango">Rango</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modalComputadora">Atras</button>
+      </div>
+    </div>
+  </div>
+</div>

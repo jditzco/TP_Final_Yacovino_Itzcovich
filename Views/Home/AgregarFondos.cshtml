@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Agregar Fondos";
+}
+<head>
+  <nav class="navbar navbar-light" style="background-color:#4671B5;">
+  <div class="container-fluid justify-content-around">
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("Ingreso","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Inicio</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("VerComputadoras","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Explorar</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("verPublicaciones","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Publicaciones</a>
+    <div class="btn navbar-brand dropdown">
+          <a class="fw-bold text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/img/Perfil.png" width=50%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fw-bold" href="#">@ViewBag.Perfil.Nombre</a></li>
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalUsuario" onclick="mostrarInfoUsuarioAjax(@ViewBag.Perfil.idUsuario)">Ver Perfil</button>
+            <li><a class="dropdown-item" href='@Url.Action("AgregarFondos","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Agregar fondos</a></li>
+            <li><a class="dropdown-item" href='@Url.Action("Index","Home")'>Cerrar Sesión</a></li>
+          </ul>
+        </div>
+  </div>
+  
+</nav>
+</head>
+<body>
+    <nav class="navbar navbar-light mb-4" style="background-color:#658cc2cb;">
+        <div class="container-fluid justify-content-around">
+          <h2 class="mb-1 Margen text-center fw-bold text-light">Agregar Fondos</h2>
+        </div>
+      </nav>
+    <div class= "Margen card justify-content-center mb-2" style="max-width: 540px; background-color:#658cc270">
+        <form method="POST" action='@Url.Action("ConfirmarPago","Home", new {idUsuario = @ViewBag.Perfil.idUsuario})' style="margin-bottom:3%; margin-left:3%; margin-right:3%; margin-top:3%;">
+            <label for="x" class="sr-only mb-2 fw-bold">Ingrese la cantidad de plata:</label>
+            <input type="number" class="form-control mb-3" name="plata" placeholder="Cantidad..." min="0" max="1000000" style="max-width:300px" required>
+            <button type="submit" class="btn btn-success fw-bold mb-4" placeholder="Nombre">Confirmar</button>
+            @if(ViewBag.Mensaje!=null)
+            {
+              <div class="alert alert-success" role="alert">
+                @ViewBag.Mensaje
+              </div>
+            }
+        </form>
+    </div>
+</body>
+
+<!-- Modal -->
+<div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content" style="background-color:#ffffffe8;">
+      <div class="modal-header">
+        <h5 class="fw-bold text-center" id="Nombre">Nombre del Usuario</h5>
+        <button type="button" class="close" data-dismiss="#modalComputadora" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="" id="FechaNacimiento">Fecha de nacimiento:</p>
+        <p class="" id="FechaSignUp">Fecha de creación de la cuenta:</p>
+        <p class="" id="Plata">Fondos:</p>
+        <p class="" id="ComputadorasCompradas">Computadoras Compradas:</p>
+        <p class="" id="ComputadorasVendidas">Computadoras Vendidas:</p>
+        <p class="" id="Rango">Rango</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modalComputadora">Atras</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+@{
+    ViewData["Title"] = "Agregar Computadora";
+}
+<head>
+  <nav class="navbar navbar-light" style="background-color:#4671B5;">
+  <div class="container-fluid justify-content-around">
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("Ingreso","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Inicio</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("VerComputadoras","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Explorar</a>
+    <a class="btn navbar-brand fw-bold text-light" style="background-color:#658BC2;" href='@Url.Action("verPublicaciones","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Publicaciones</a>
+    <div class="btn navbar-brand dropdown">
+          <a class="fw-bold text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="/img/Perfil.png" width=50%>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item fw-bold" href="#">@ViewBag.Perfil.Nombre</a></li>
+            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalUsuario" onclick="mostrarInfoUsuarioAjax(@ViewBag.Perfil.idUsuario)">Ver Perfil</button>
+            <li><a class="dropdown-item" href='@Url.Action("AgregarFondos","Home", new {idUsuario = ViewBag.Perfil.idUsuario})'>Agregar fondos</a></li>
+            <li><a class="dropdown-item" href='@Url.Action("Index","Home")'>Cerrar Sesión</a></li>
+          </ul>
+        </div>
+  </div>
+  
+</nav>
+<nav class="navbar navbar-light mb-4" style="background-color:#658cc2cb;">
+      <div class="container-fluid justify-content-around">
+        <h2 class="mb-1 Margen text-center fw-bold text-light">Agregar Computadora</h2>
+      </div>
+    </nav>
+</head>
+<div class="Margen">
+    @{
+      if(ViewBag.Mensaje!=null){
+        <div class="alert alert-success" role="alert" style="max-width: 540px">
+                  <i>@ViewBag.Mensaje</i>
+        </div>
+      }
+    }
+    <div class="card mb-3" style="max-width: 540px; background-color:#658cc270">
+      <form method="POST" action='@Url.Action("GuardarComputadora","Home", new {idUsuario = ViewBag.Perfil.idUsuario})' style="margin-bottom:3%; margin-left:3%; margin-right:3%; margin-top:3%;">
+        
+        <h3 class="fw-bold mb-4">Nueva Computadora</h3>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Nombre:</label>
+        <input type="text" class="form-control mb-3" name="nombre" placeholder="Nombre" maxlength="20" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Precio:</label>
+        <input type="number" class="form-control mb-3" name="Precio" placeholder="$Precio..." min="0" max="1000000" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Marca:</label>
+        <select class="form-select" aria-label="Default select example" name="Marca" style="max-width:80%" required>
+          <option value="Msi">Msi</option>
+          <option value="Dell">Dell</option>
+          <option value="HP">HP</option>
+          <option value="Lenovo">Lenovo</option>
+        </select><br>
+        
+        <label for="x" class="sr-only mb-1 fw-bold">Procesador:</label>
+        <input type="text" class="form-control mb-3" name="Procesador" placeholder="Procesador..." maxlength="100" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Mother:</label>
+        <input type="text" class="form-control mb-3" name="Mother" placeholder="Mother..." maxlength="100" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Placa de Video:</label>
+        <input type="text" class="form-control mb-3" name="PlacaVideo" placeholder="Placa..." maxlength="100" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Sistema Operativo:</label>
+        <select class="form-select" aria-label="Default select example" name="SO" style="max-width:80%" required>
+          <option selected>Windows</option>
+          <option value="1">MacOS</option>
+          <option value="2">Linux</option>
+          <option value="3">ChromeOS</option>
+        </select><br>
+
+        <label for="x" class="sr-only mb-1 fw-bold">Memoria RAM:</label>
+        <input type="text" class="form-control mb-3" name="ram" placeholder="RAM..." maxlength="100" style="max-width:80%" required>
+
+        <label for="x" class="sr-only mb-1 fw-bold">¿Envío a Domicilio?</label><br>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="EnvioADomicilio" id="flexRadioDefault1" value=true checked>
+          <label class="form-check-label" for="flexRadioDefault1">
+            Si
+          </label>
+        </div>
+        <div class="form-check mb-2">
+          <input class="form-check-input" type="radio" name="EnvioADomicilio" id="flexRadioDefault2" value=false>
+          <label class="form-check-label" for="flexRadioDefault2">
+            No
+          </label>
+        </div>
+        
+        <label for="x" class="sr-only mb-1 fw-bold">Fuente de Alimentación:</label>
+        <input type="text" class="form-control mb-3" name="FuenteAlimentacion" placeholder="Fuente..." maxlength="100" style="max-width:80%" required>
+        
+        <div class="mb-3">
+          <label for="x" class="sr-only mb-1 fw-bold">Imagen de Portada:</label>
+          <input type="text" class="form-control" name="ImagenPortada" placeholder="Imagen..." maxlength="10000" style="max-width:80%" required>
+        </div>
+
+        <button type="submit" class="btn btn-success" placeholder="Nombre">Agregar</button>
+      </form>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content" style="background-color:#ffffffe8;">
+      <div class="modal-header">
+        <h5 class="fw-bold text-center" id="Nombre">Nombre del Usuario</h5>
+        <button type="button" class="close" data-dismiss="#modalComputadora" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="" id="FechaNacimiento">Fecha de nacimiento:</p>
+        <p class="" id="FechaSignUp">Fecha de creación de la cuenta:</p>
+        <p class="" id="Plata">Fondos:</p>
+        <p class="" id="ComputadorasCompradas">Computadoras Compradas:</p>
+        <p class="" id="ComputadorasVendidas">Computadoras Vendidas:</p>
+        <p class="" id="Rango">Rango</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modalComputadora">Atras</button>
+      </div>
+    </div>
+  </div>
+</div>
